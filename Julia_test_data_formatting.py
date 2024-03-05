@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd
 
-AIS_path = r'.\Data'
+data_path = r'C:\Users\julia\OneDrive\Documenten\TU Delft\1. MSc TIL\Machine learning\ME44312-AIS-Assignment\Data'
 
 # Initialize an empty list to store parsed JSON data
 AIS_data = []
