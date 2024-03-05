@@ -4,9 +4,8 @@ import pandas as pd
 
 data_path = r'C:\Users\julia\OneDrive\Documenten\TU Delft\1. MSc TIL\Machine learning\ME44312-AIS-Assignment\Data'
 
-# Initialize lists to store latitudes and longitudes
-latitudes = []
-longitudes = []
+# Initialize an empty list to store parsed JSON data
+all_data = []
 
 # Iterate over files in the directory
 for file_name in os.listdir(data_path):
@@ -15,21 +14,15 @@ for file_name in os.listdir(data_path):
     
     # Check if the path is a file (not a directory)
     if os.path.isfile(file_path):
-        try:
-            # Open and read the file
-            with open(file_path, 'r') as f:
-                # Parse JSON data
-                parsed_data = json.load(f)
-                # Check if 'navigation' key exists
-                if 'navigation' in parsed_data and 'location' in parsed_data['navigation']:
-                    # Append latitude and longitude to lists
-                    latitudes.append(parsed_data['navigation']['location']['lat'])
-                    longitudes.append(parsed_data['navigation']['location']['long'])
-        except Exception as e:
-            print(f"Error processing file '{file_name}': {e}")
+        # Open and read the file
+        with open(file_path) as f:
+            # Load JSON data from the file
+            json_data = json.load(f)
+            # Append loaded data to the list
+            all_data.append(json_data)
 
-# Create a DataFrame with latitudes and longitudes
-df_locations = pd.DataFrame({'Latitude': latitudes, 'Longitude': longitudes})
+# Normalize the JSON data
+data_normalized = pd.json_normalize(all_data, 'data')
 
-# Display the DataFrame
-print(df_locations)
+# Now you can work with your DataFrame 'data_normalized'
+print(data_normalized.head())  # Display the first few rows of the DataFrame

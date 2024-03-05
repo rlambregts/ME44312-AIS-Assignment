@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import os
 
 # Load the JSON data into a pandas DataFrame
 with open('raw_data_rotterdam/raw_ais_data_2021_rotterdam_1609459200.0_1609545600.0.JSON') as f:
