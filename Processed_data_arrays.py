@@ -76,40 +76,40 @@ df = df[df['vessel.name'].isin(vessel_name_counts.index[vessel_name_counts > 5])
 
 df['vessel.type'].value_counts()
 
-all_locations = plt.scatter(df['navigation.location.long'], df['navigation.location.lat'])
+# all_locations = plt.scatter(df['navigation.location.long'], df['navigation.location.lat'])
 
-df_test1 = df[(df['vessel.type'] == 'cargo')]
-locations = plt.scatter(df_test1['navigation.location.long'], df_test1['navigation.location.lat'])
+# df_test1 = df[(df['vessel.type'] == 'cargo')]
+# locations = plt.scatter(df_test1['navigation.location.long'], df_test1['navigation.location.lat'])
 
-df_test2 = df[(df['vessel.type'] == 'other')]
-locations = plt.scatter(df_test2['navigation.location.long'], df_test2['navigation.location.lat'])
+# df_test2 = df[(df['vessel.type'] == 'other')]
+# locations = plt.scatter(df_test2['navigation.location.long'], df_test2['navigation.location.lat'])
 
-df_test3 = df[(df['vessel.type'] == 'dredging-underwater-ops')]
-locations = plt.scatter(df_test3['navigation.location.long'], df_test3['navigation.location.lat'])
+# df_test3 = df[(df['vessel.type'] == 'dredging-underwater-ops')]
+# locations = plt.scatter(df_test3['navigation.location.long'], df_test3['navigation.location.lat'])
 
-df_test4 = df[(df['vessel.type'] == 'tanker')]
-locations = plt.scatter(df_test4['navigation.location.long'], df_test4['navigation.location.lat'])
+# df_test4 = df[(df['vessel.type'] == 'tanker')]
+# locations = plt.scatter(df_test4['navigation.location.long'], df_test4['navigation.location.lat'])
 
-# Create a folium map centered at the mean latitude and longitude
-map_center = [df['navigation.location.lat'].mean(), df['navigation.location.long'].mean()]
-m = folium.Map(location=map_center, zoom_start=10)
+# # Create a folium map centered at the mean latitude and longitude
+# map_center = [df['navigation.location.lat'].mean(), df['navigation.location.long'].mean()]
+# m = folium.Map(location=map_center, zoom_start=10)
 
-marker_cluster = MarkerCluster().add_to(m)
+# marker_cluster = MarkerCluster().add_to(m)
 
-for index, row in df.iterrows():
-    folium.Marker(location=[row['navigation.location.lat'], row['navigation.location.long']]).add_to(marker_cluster)
+# for index, row in df.iterrows():
+#     folium.Marker(location=[row['navigation.location.lat'], row['navigation.location.long']]).add_to(marker_cluster)
 
-scatter_html = mplleaflet.fig_to_html(plt.gcf())
+# scatter_html = mplleaflet.fig_to_html(plt.gcf())
 
-# Create a folium iframe to embed the scatterplot HTML
-scatter_frame = folium.IFrame(html=scatter_html, width=500, height=300)
-scatter_popup = folium.Popup(scatter_frame, max_width=500)
+# # Create a folium iframe to embed the scatterplot HTML
+# scatter_frame = folium.IFrame(html=scatter_html, width=500, height=300)
+# scatter_popup = folium.Popup(scatter_frame, max_width=500)
 
-# Add the scatterplot as a popup to the folium map
-folium.Marker(location=map_center, popup=scatter_popup).add_to(m)
+# # Add the scatterplot as a popup to the folium map
+# folium.Marker(location=map_center, popup=scatter_popup).add_to(m)
     
-# m.save('filtered_data.html')
-# m
+# # m.save('filtered_data.html')
+# # m
 
 
 # Functie om string naar datetime object om te zetten
@@ -124,7 +124,7 @@ df['time'] = df['navigation.time'].dt.time
 # subset = df.iloc[19719:19730]
 # print(subset)
 
-df = df.sort_values(by=['vessel.name', 'group', 'navigation.time'])
+#df = df.sort_values(by=['vessel.name', 'group', 'navigation.time'])
 
 # Get the rows where 'navigation.status' and 'vessel.name' changes
 df['status_change'] = (df['navigation.status'] != df['navigation.status'].shift(1)) | (df['vessel.name'] != df['vessel.name'].shift(1))
@@ -132,7 +132,7 @@ df['status_change'] = (df['navigation.status'] != df['navigation.status'].shift(
 # Increment group number only when status changes
 df['group'] = (df['status_change'] == True).cumsum()
 
-
+df = df.sort_values(by=['vessel.name', 'group', 'navigation.time'])
 
 # Group by 'vessel.name', 'group', and 'navigation.status' and aggregate start and end time
 result = df.groupby(['vessel.name', 'group', 'navigation.status', 'navigation.draught']).agg(start_time=('time', 'first'), end_time=('time', 'last'), start_date=('date', 'first'), end_date=('date', 'last'))
