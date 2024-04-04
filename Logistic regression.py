@@ -52,10 +52,10 @@ y = ['Tanker', 'Container', 'Bulk Carrier', 'Fishing', 'Container',
      'Tanker', 'Bulk Carrier', 'Fishing', 'Container', 'Tanker']
 
 # Split the data into a training set and test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Train a logistic regression model using the training set
-model = LogisticRegression(multi_class='multinomial', solver='lbfgs', penalty=None)
+model = LogisticRegression(multi_class='multinomial', solver='lbfgs', penalty=None, max_iter=100)
 model.fit(X_train, y_train)
 
 # predict results using the test set
@@ -80,4 +80,3 @@ plt.show()
 class_report = classification_report(y_test, y_prediction)
 print("Classification Report:\n", class_report)
 
-#test
