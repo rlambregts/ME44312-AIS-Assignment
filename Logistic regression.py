@@ -6,6 +6,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from Processed_data_arrays import moored_array
 from Processed_data_arrays import vessel_array
+# from Data_Processing_final_copy import moored_array
+# from Data_Processing_final_copy import vessel_array
 
 # Assuming X is a 2D array where each row represents a ship's mooring times and depth
 X = [[6.4, 15.2], [8.9, 18.5], [11.2, 20.0], [4.7, 12.8], [10.1, 19.0],
