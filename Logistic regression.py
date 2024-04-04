@@ -4,7 +4,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from Processed_data_arrays import moored_array
+from Processed_data_arrays import vessel_array
 
 # Assuming X is a 2D array where each row represents a ship's mooring times and depth
 X = [[6.4, 15.2], [8.9, 18.5], [11.2, 20.0], [4.7, 12.8], [10.1, 19.0],
@@ -55,7 +56,7 @@ y = ['Tanker', 'Container', 'Bulk Carrier', 'Fishing', 'Container',
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Train a logistic regression model using the training set
-model = LogisticRegression(multi_class='multinomial', solver='lbfgs', penalty=None, max_iter=100)
+model = LogisticRegression(multi_class='multinomial', solver='lbfgs', penalty=None, max_iter=50)
 model.fit(X_train, y_train)
 
 # predict results using the test set
